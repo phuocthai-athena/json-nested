@@ -7,24 +7,14 @@
         "Pinia": true,
         "Router": [1, 2]
       },
-      "React.js": {
-        "Next.js": "SSR",
-        "Redux": [
-          "Redux Toolkit",
-          "Redux Thunk",
-          {
-            "Abc": false
-          }
-        ]
-      },
+      "React.js": false,
       "Angular.js": ["Material", true, null, "Nebular"],
       "Node.js": {
         "Express.js": "",
         "Mongoose": true,
         "Sequelize": false,
-        "Knox": [1, 2]
-      },
-      "Ruby": 1
+        "Knex": [1, 2]
+      }
     }
   }
 ]

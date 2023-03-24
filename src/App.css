@@ -1,13 +1,12 @@
 .app {
-  background-color: #ccc;
+  background-color: #fff;
   height: 100vh;
   width: 100vw;
 }
 
 .app-content {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   height: 100%;
   width: 100%;
 }
@@ -30,12 +29,12 @@
 
 li {
   display: flex;
-  padding: 8px 0;
+  padding: 8px 0 10px;
 }
 
 .key {
-  font-weight: bold;
-  margin-right: 1rem;
+  font-weight: 400;
+  margin-right: 8px;
 }
 
 .value {
@@ -47,4 +46,68 @@ li {
   position: absolute;
   top: 0;
   transform: translateX(-30px);
+  width: 20px;
+  height: 20px;
+  background-color: #eee;
+  border: 2px solid #bbb;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.number {
+  color: #722564;
+  font-weight: 500;
+}
+
+.boolean {
+  color: #61915d;
+  font-weight: 600;
+}
+
+.braces-r,
+.braces-l {
+  color: red;
+  font-weight: 600;
+}
+
+.braces-r {
+  display: inline-block;
+  height: 8px;
+}
+
+.braces-r::before {
+  content: "}";
+  position: absolute;
+  transform: translateX(-25px);
+}
+
+.braces-r.not-before::before {
+  content: "";
+  position: unset;
+  transform: unset;
+}
+
+.array-r,
+.array-l {
+  color: #3230ae;
+  font-weight: 600;
+}
+
+.array-r {
+  display: inline-block;
+  height: 8px;
+}
+
+.array-r::before {
+  content: "]";
+  position: absolute;
+  transform: translateX(-25px);
+}
+
+.array-r.not-before::before {
+  content: "";
+  position: unset;
+  transform: unset;
 }

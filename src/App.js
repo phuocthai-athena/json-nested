@@ -1,10 +1,46 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import data from "./Data/data.json";
 import "./App.css";
+
+function renderNumber(value) {
+  return <span className="number">{value}</span>;
+}
+
+function renderBoolean(value) {
+  return <span className="boolean">{value.toString()}</span>;
+}
+
+function renderString(value) {
+  return <span className="string">"{value}"</span>;
+}
+
+function useArrayChecker(value) {
+  const [hasArray, setHasArray] = useState(false);
+
+  useEffect(() => {
+    if (Array.isArray(value)) {
+      setHasArray(true);
+    }
+  }, [value]);
+
+  return hasArray;
+}
 
 function renderList(data) {
   return Object.entries(data).map(([key, value]) => {
     const [isExpanded, setIsExpanded] = useState(false);
+    const [hasNestedContainer, setHasNestedContainer] = useState(false);
+    const hasArray = useArrayChecker(value);
+
+    const keyValueContainerRef = useRef(null);
+
+    useEffect(() => {
+      const nestedContainer =
+        keyValueContainerRef.current.querySelector(".nested-container");
+      if (nestedContainer !== null) {
+        setHasNestedContainer(true);
+      }
+    }, []);
 
     let displayValue = null;
 
@@ -30,14 +66,47 @@ function renderList(data) {
       );
     } else {
       // Render primitive values as is
-      displayValue = value !== null ? value.toString() : "null";
+      displayValue =
+        value !== null
+          ? typeof value === "number"
+            ? renderNumber(value)
+            : typeof value === "boolean"
+            ? renderBoolean(value)
+            : renderString(value)
+          : "null";
     }
 
     return (
       <li key={key}>
-        <div className="key-value-container">
-          <span className="key">{key}:</span>{" "}
+        <div className="key-value-container" ref={keyValueContainerRef}>
+          <span className="key">
+            {key} :{" "}
+            {isExpanded ? (
+              <span className={`${hasArray ? "array-l" : "braces-l"}`}>
+                {hasArray ? "[" : "{"}
+              </span>
+            ) : hasNestedContainer ? (
+              <>
+                <span className={`${hasArray ? "array-l" : "braces-l"}`}>
+                  {hasArray ? "[" : "{"}
+                </span>
+                ...
+                <span
+                  className={`${
+                    hasArray
+                      ? `array-r ${hasNestedContainer ? "not-before" : ""}`
+                      : `braces-r ${hasNestedContainer ? "not-before" : ""}`
+                  }`}
+                >
+                  {hasArray ? "]" : "}"}
+                </span>
+              </>
+            ) : null}
+          </span>{" "}
           <span className="value">{displayValue}</span>
+          {isExpanded ? (
+            <span className={hasArray ? "array-r" : "braces-r"}></span>
+          ) : null}
         </div>
       </li>
     );
