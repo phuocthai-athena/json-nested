@@ -20,7 +20,6 @@
 .nested {
   list-style-type: none;
   padding: 0;
-  margin-left: 1.5rem;
 }
 
 .nested.hidden {
@@ -29,7 +28,7 @@
 
 li {
   display: flex;
-  padding: 8px 0 10px;
+  padding: 10px 0px 12px 30px;
 }
 
 .key {
@@ -45,7 +44,7 @@ li {
 .button {
   position: absolute;
   top: 0;
-  transform: translateX(-30px);
+  transform: translateX(-25px);
   width: 20px;
   height: 20px;
   background-color: #eee;
@@ -66,27 +65,15 @@ li {
   font-weight: 600;
 }
 
+.null {
+  color: darkorange;
+  font-weight: 600;
+}
+
 .braces-r,
 .braces-l {
   color: red;
   font-weight: 600;
-}
-
-.braces-r {
-  display: inline-block;
-  height: 8px;
-}
-
-.braces-r::before {
-  content: "}";
-  position: absolute;
-  transform: translateX(-25px);
-}
-
-.braces-r.not-before::before {
-  content: "";
-  position: unset;
-  transform: unset;
 }
 
 .array-r,
@@ -95,19 +82,71 @@ li {
   font-weight: 600;
 }
 
+.braces-r,
 .array-r {
   display: inline-block;
   height: 8px;
 }
 
+.braces-r::before {
+  content: "}";
+  position: absolute;
+  transform: translateX(-20px);
+}
+
 .array-r::before {
   content: "]";
   position: absolute;
-  transform: translateX(-25px);
+  transform: translateX(-20px);
 }
 
+.braces-r.not-before::before,
 .array-r.not-before::before {
   content: "";
   position: unset;
   transform: unset;
+}
+
+ul > li.has-nested {
+  position: relative;
+  height: 100%;
+}
+
+ul > li.has-nested::before {
+  content: "";
+  position: absolute;
+  top: 30px;
+  left: 10px;
+  height: calc(100% - 55px);
+  border-left: 1px dashed #ccc;
+}
+
+ul > li.has-nested::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -20px;
+  width: calc(100% - 85%);
+  border-top: 1px dashed #ccc;
+}
+
+ul > li.no-nested {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+ul > li.no-nested::before {
+  content: "";
+  position: absolute;
+  top: 20px;
+  left: -20px;
+  width: calc(100% - 80%);
+  height: 38px;
+  border-top: 1px dashed #ccc;
+}
+
+ul.root > li.no-nested::before,
+ul.root > li.has-nested::after {
+  content: unset;
 }

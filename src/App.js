@@ -14,6 +14,14 @@ function renderString(value) {
   return <span className="string">"{value}"</span>;
 }
 
+function renderValue(value) {
+  return typeof value === "number"
+    ? renderNumber(value)
+    : typeof value === "boolean"
+    ? renderBoolean(value)
+    : renderString(value);
+}
+
 function useArrayChecker(value) {
   const [hasArray, setHasArray] = useState(false);
 
@@ -67,17 +75,15 @@ function renderList(data) {
     } else {
       // Render primitive values as is
       displayValue =
-        value !== null
-          ? typeof value === "number"
-            ? renderNumber(value)
-            : typeof value === "boolean"
-            ? renderBoolean(value)
-            : renderString(value)
-          : "null";
+        value !== null ? (
+          renderValue(value)
+        ) : (
+          <span className="null">null</span>
+        );
     }
 
     return (
-      <li key={key}>
+      <li className={isExpanded ? "has-nested" : "no-nested"} key={key}>
         <div className="key-value-container" ref={keyValueContainerRef}>
           <span className="key">
             {key} :{" "}

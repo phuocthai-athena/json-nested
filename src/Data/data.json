@@ -8,7 +8,7 @@
         "Router": [1, 2]
       },
       "React.js": false,
-      "Angular.js": ["Material", true, null, "Nebular"],
+      "Angular.js": ["Material", true, null, "Nebular", { "HLE": "top3" }],
       "Node.js": {
         "Express.js": "",
         "Mongoose": true,
